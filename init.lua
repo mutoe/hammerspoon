@@ -2,6 +2,18 @@ hs.hotkey.alertDuration = 0
 hs.hints.showTitleThresh = 0
 hs.window.animationDuration = 0
 
+local hiper = require('hiper').new('rightcmd')
+
+local features = {
+    f = function() hs.application.launchOrFocus('Firefox') end,
+    w = function() hs.application.launchOrFocus('Wechat') end,
+    m = function() hs.application.launchOrFocus('Mail') end,
+    t = function() hs.application.launchOrFocus('iTerm') end,
+    i = function() hs.application.launchOrFocus('IntelliJ IDEA') end,
+}
+
+hiper.load_features(features)
+
 -- Use the standardized config location, if present
 custom_config = hs.fs.pathToAbsolute(os.getenv("HOME") .. '/.config/hammerspoon/private/config.lua')
 if custom_config then
