@@ -216,6 +216,10 @@ if spoon.CountDown then
     local cmodal = spoon.ModalMgr.modal_list["countdownM"]
     cmodal:bind('', 'escape', 'Deactivate countdownM', function() spoon.ModalMgr:deactivate({"countdownM"}) end)
     cmodal:bind('', 'Q', 'Deactivate countdownM', function() spoon.ModalMgr:deactivate({"countdownM"}) end)
+    cmodal:bind('', 'S', 'Stop countdownM', function()
+        spoon.CountDown:canvasCleanup()
+        spoon.ModalMgr:deactivate({"countdownM"})
+    end)
     cmodal:bind('', 'tab', 'Toggle Cheatsheet', function() spoon.ModalMgr:toggleCheatsheet() end)
     cmodal:bind('', '0', '5 Minutes Countdown', function()
         spoon.CountDown:startFor(5)
@@ -227,8 +231,8 @@ if spoon.CountDown then
             spoon.ModalMgr:deactivate({"countdownM"})
         end)
     end
-    cmodal:bind('', 'return', '25 Minutes Countdown', function()
-        spoon.CountDown:startFor(25)
+    cmodal:bind('', 'return', '7 Minutes Countdown', function()
+        spoon.CountDown:startFor(7)
         spoon.ModalMgr:deactivate({"countdownM"})
     end)
     cmodal:bind('', 'space', 'Pause/Resume CountDown', function()

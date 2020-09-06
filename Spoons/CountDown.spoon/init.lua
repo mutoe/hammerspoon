@@ -43,7 +43,7 @@ end
 --- Parameters:
 ---  * minutes - How many minutes
 
-local function canvasCleanup()
+function obj:canvasCleanup()
     if obj.timer then
         obj.timer:stop()
         obj.timer = nil
@@ -55,29 +55,28 @@ local function canvasCleanup()
 end
 
 function obj:startFor(minutes)
-    if obj.timer then
-        canvasCleanup()
+    if obj.timer then self:canvasCleanup() end
+
+    local mainScreen = hs.screen.mainScreen()
+    local mainRes = mainScreen:fullFrame()
+    obj.canvas:frame({x=mainRes.x, y=mainRes.y+mainRes.h-5, w=mainRes.w, h=5})
+    -- Set minimum visual step to 2px (i.e. Make sure every trigger updates 2px on screen at least.)
+    local minimumStep = 2
+    local secCount = math.ceil(60*minutes)
+    obj.loopCount = 0
+    if mainRes.w/secCount >= 2 then
+        obj.timer = hs.timer.doEvery(1, function()
+            obj.loopCount = obj.loopCount+1/secCount
+            obj:setProgress(obj.loopCount, minutes)
+        end)
     else
-        local mainScreen = hs.screen.mainScreen()
-        local mainRes = mainScreen:fullFrame()
-        obj.canvas:frame({x=mainRes.x, y=mainRes.y+mainRes.h-5, w=mainRes.w, h=5})
-        -- Set minimum visual step to 2px (i.e. Make sure every trigger updates 2px on screen at least.)
-        local minimumStep = 2
-        local secCount = math.ceil(60*minutes)
-        obj.loopCount = 0
-        if mainRes.w/secCount >= 2 then
-            obj.timer = hs.timer.doEvery(1, function()
-                obj.loopCount = obj.loopCount+1/secCount
-                obj:setProgress(obj.loopCount, minutes)
-            end)
-        else
-            local interval = 2/(mainRes.w/secCount)
-            obj.timer = hs.timer.doEvery(interval, function()
-                obj.loopCount = obj.loopCount+1/mainRes.w*2
-                obj:setProgress(obj.loopCount, minutes)
-            end)
-        end
+        local interval = 2/(mainRes.w/secCount)
+        obj.timer = hs.timer.doEvery(interval, function()
+            obj.loopCount = obj.loopCount+1/mainRes.w*2
+            obj:setProgress(obj.loopCount, minutes)
+        end)
     end
+
 
     return self
 end
@@ -112,8 +111,9 @@ function obj:setProgress(progress, notifystr)
         obj.canvas:frame({x=mainRes.x, y=mainRes.y+mainRes.h-5, w=mainRes.w, h=5})
     end
     if progress >= 1 then
-        canvasCleanup()
+        self:canvasCleanup()
         if notifystr then
+            hs.speech.new():speak("Time(" .. notifystr .. "mins) is up!")
             hs.notify.new({
                 title = "Time(" .. notifystr .. " mins) is up!",
                 informativeText = "Now is " .. os.date("%X")
