@@ -8,8 +8,11 @@ local features = {
     f = function() hs.application.launchOrFocus('Firefox') end,
     w = function() hs.application.launchOrFocus('Wechat') end,
     m = function() hs.application.launchOrFocus('Mail') end,
+    n = function() hs.application.launchOrFocus('NetNewsWire') end,
     t = function() hs.application.launchOrFocus('iTerm') end,
     i = function() hs.application.launchOrFocus('IntelliJ IDEA') end,
+    -- Pause/Play audio
+    p = function() require('hs.eventtap').event.newSystemKeyEvent("PLAY", true):post() end,
 }
 
 hiper.load_features(features)
