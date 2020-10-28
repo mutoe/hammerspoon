@@ -1,8 +1,9 @@
 # Mutoe's Personal Hammerspoon Config
 
+- ModalMgr (modal manager for all features)
 - WinWin (interactive resize app window)
 - CountDown (display a deadline at the bottom of the screen)
-- CursorJump (jump the mouse cursor to next screen)
+- ToggleScreenRotation (rotation the special screen)
 
 # Reference 
 
