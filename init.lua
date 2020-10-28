@@ -67,29 +67,17 @@ if spoon.CountDown then
   local cmodal = spoon.ModalMgr.modal_list["countdownM"]
   cmodal:bind('', 'escape', 'Deactivate countdownM', function() spoon.ModalMgr:deactivate({ "countdownM" }) end)
   cmodal:bind('', 'Q', 'Deactivate countdownM', function() spoon.ModalMgr:deactivate({ "countdownM" }) end)
-  cmodal:bind('', 'S', 'Stop countdownM', function()
-    spoon.CountDown:canvasCleanup()
-    spoon.ModalMgr:deactivate({ "countdownM" })
-  end)
+  cmodal:bind('', 'S', 'Stop countdownM', function() spoon.CountDown:canvasCleanup() spoon.ModalMgr:deactivate({ "countdownM" }) end)
   cmodal:bind('', 'tab', 'Toggle Cheatsheet', function() spoon.ModalMgr:toggleCheatsheet() end)
-  cmodal:bind('', '0', '5 Minutes Countdown', function()
-    spoon.CountDown:startFor(5)
-    spoon.ModalMgr:deactivate({ "countdownM" })
-  end)
+  cmodal:bind('', '0', '5 Minutes Countdown', function() spoon.CountDown:startFor(5) spoon.ModalMgr:deactivate({ "countdownM" }) end)
   for i = 1, 9 do
     cmodal:bind('', tostring(i), string.format("%s Minutes Countdown", 10 * i), function()
       spoon.CountDown:startFor(10 * i)
       spoon.ModalMgr:deactivate({ "countdownM" })
     end)
   end
-  cmodal:bind('', 'return', '7 Minutes Countdown', function()
-    spoon.CountDown:startFor(7)
-    spoon.ModalMgr:deactivate({ "countdownM" })
-  end)
-  cmodal:bind('', 'space', 'Pause/Resume CountDown', function()
-    spoon.CountDown:pauseOrResume()
-    spoon.ModalMgr:deactivate({ "countdownM" })
-  end)
+  cmodal:bind('', 'return', '7 Minutes Countdown', function() spoon.CountDown:startFor(7) spoon.ModalMgr:deactivate({ "countdownM" }) end)
+  cmodal:bind('', 'space', 'Pause/Resume CountDown', function() spoon.CountDown:pauseOrResume() spoon.ModalMgr:deactivate({ "countdownM" }) end)
 
   -- Register countdownM with modal supervisor
   if hscountdM_keys then
