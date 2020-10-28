@@ -18,25 +18,20 @@ local features = {
 hiper.load_features(features)
 
 -- Use the standardized config location, if present
-custom_config = hs.fs.pathToAbsolute(os.getenv("HOME") .. '/.config/hammerspoon/private/config.lua')
+custom_config = hs.fs.pathToAbsolute(os.getenv("HOME") .. '/.config/hammerspoon/config.lua')
 if custom_config then
   print("Loading custom config")
-  dofile(os.getenv("HOME") .. "/.config/hammerspoon/private/config.lua")
-  privatepath = hs.fs.pathToAbsolute(hs.configdir .. '/private/config.lua')
+  dofile(os.getenv("HOME") .. "/.config/hammerspoon/config.lua")
+  privatepath = hs.fs.pathToAbsolute(hs.configdir .. '/config.lua')
   if privatepath then
-    hs.alert("You have config in both .config/hammerspoon and .hammerspoon/private.\nThe .config/hammerspoon one will be used.")
+    hs.alert("You have config in both ~/.config/hammerspoon and ~/.hammerspoon.\nThe .config/hammerspoon one will be used.")
   end
 else
   -- otherwise fallback to 'classic' location.
-  if not privatepath then
-    privatepath = hs.fs.pathToAbsolute(hs.configdir .. '/private')
-    -- Create `~/.hammerspoon/private` directory if not exists.
-    hs.fs.mkdir(hs.configdir .. '/private')
-  end
-  privateconf = hs.fs.pathToAbsolute(hs.configdir .. '/private/config.lua')
+  privateconf = hs.fs.pathToAbsolute(hs.configdir .. '/config.lua')
   if privateconf then
     -- Load awesomeconfig file if exists
-    require('private/config')
+    require('config')
   end
 end
 
@@ -88,8 +83,6 @@ if spoon.CountDown then
     end)
   end
 end
-
-
 
 
 ----------------------------------------------------------------------------------------------------
