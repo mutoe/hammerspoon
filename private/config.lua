@@ -3,6 +3,7 @@ hspoon_list = {
   "CountDown",
   "KSheet",
   "WinWin",
+  "ToggleScreenRotation"
 }
 
 -- Modal supervisor keybinding, which can be used to temporarily disable ALL modal environments.
@@ -25,6 +26,8 @@ hsresizeM_keys = { { "cmd", "ctrl" }, "L" }
 
 -- cheatsheetM environment keybinding: Cheatsheet copycat
 hscheats_keys = { { "cmd", "ctrl" }, "X" }
+
+rotationM_keys = { { "cmd", "ctrl" }, "R" }
 
 -- Toggle Hammerspoon console
 -- hsconsole_keys = {"alt", "Z"}

@@ -89,6 +89,32 @@ if spoon.CountDown then
   end
 end
 
+
+
+
+----------------------------------------------------------------------------------------------------
+-- toggleScreenRotation modal environment
+if spoon.ToggleScreenRotation then
+  spoon.ModalMgr:new("rotationM")
+  local cmodal = spoon.ModalMgr.modal_list["rotationM"]
+
+  cmodal:bind('', 'escape', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
+  cmodal:bind('', 'Q', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
+  for i, screen in ipairs(hs.screen.allScreens()) do
+    name = "Rotate " .. screen:name()
+    cmodal:bind('', tostring(i), name, function() spoon.ToggleScreenRotation:toggleRotation(screen:id()) end)
+  end
+
+  if rotationM_keys then
+    spoon.ModalMgr.supervisor:bind(rotationM_keys[1], rotationM_keys[2], "Enter rotationM Environment", function()
+      -- Deactivate some modal environments or not before activating a new one
+      spoon.ModalMgr:deactivateAll()
+      -- Show an status indicator so we know we're in some modal environment now
+      spoon.ModalMgr:activate({ "rotationM" }, "#B22222", true)
+    end)
+  end
+end
+
 ----------------------------------------------------------------------------------------------------
 -- resizeM modal environment
 if spoon.WinWin then
