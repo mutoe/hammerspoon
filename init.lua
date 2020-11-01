@@ -4,6 +4,8 @@ hs.window.animationDuration = 0
 
 local hiper = require('hiper').new('rightcmd')
 
+require('autoDarkMode')
+
 local features = {
   f = function() hs.application.launchOrFocus('Firefox') end,
   w = function() hs.application.launchOrFocus('Wechat') end,
@@ -88,24 +90,64 @@ end
 ----------------------------------------------------------------------------------------------------
 -- toggleScreenRotation modal environment
 if spoon.ToggleScreenRotation then
-  spoon.ModalMgr:new("rotationM")
-  local cmodal = spoon.ModalMgr.modal_list["rotationM"]
-
-  cmodal:bind('', 'escape', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
-  cmodal:bind('', 'Q', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
-  for i, screen in ipairs(hs.screen.allScreens()) do
-    name = "Rotate " .. screen:name()
-    cmodal:bind('', tostring(i), name, function() spoon.ToggleScreenRotation:toggleRotation(screen:id()) end)
-  end
-
   if rotationM_keys then
     spoon.ModalMgr.supervisor:bind(rotationM_keys[1], rotationM_keys[2], "Enter rotationM Environment", function()
+      if spoon.ModalMgr.modal_list["rotationM"] ~= nil then
+        spoon.ModalMgr.modal_list["rotationM"]:delete()
+      end
+
+      spoon.ModalMgr:new("rotationM")
+      local cmodal = spoon.ModalMgr.modal_list["rotationM"]
+
+      cmodal:bind('', 'escape', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
+      cmodal:bind('', 'Q', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
+      for i, screen in ipairs(hs.screen.allScreens()) do
+        name = "Rotate " .. screen:name()
+        cmodal:bind('', tostring(i), name, function() spoon.ToggleScreenRotation:toggleRotation(screen:id()) end)
+      end
+
       -- Deactivate some modal environments or not before activating a new one
       spoon.ModalMgr:deactivateAll()
       -- Show an status indicator so we know we're in some modal environment now
       spoon.ModalMgr:activate({ "rotationM" }, "#B22222", true)
     end)
   end
+end
+
+if darkmodeM_keys then
+  spoon.ModalMgr:new("darkmodeM")
+  local cmodal = spoon.ModalMgr.modal_list["darkmodeM"]
+
+  local function lightMode()
+      hs.osascript.applescript(
+        'tell application "System Events" to tell appearance preferences to set dark mode to false')
+  end
+  local function darkMode()
+      hs.osascript.applescript(
+        'tell application "System Events" to tell appearance preferences to set dark mode to true')
+  end
+
+  brightTimer = hs.timer.new(5, function()
+    if hs.brightness.get() < 50 then
+      lightMode()
+    else
+      darkMode()
+    end
+  end, true)
+
+  cmodal:bind('', 'escape', 'Deactivate darkmodeM', function() spoon.ModalMgr:deactivate({ "darkmodeM" }) end)
+  cmodal:bind('', 'Q', 'Deactivate darkmodeM', function() spoon.ModalMgr:deactivate({ "darkmodeM" }) end)
+  cmodal:bind('', '1', 'Active light mode', function() lightMode() end)
+  cmodal:bind('', '2', 'Active dark mode', function() darkMode() end)
+  cmodal:bind('', '3', 'Active auto switch mode', function() brightTimer:start() end)
+  cmodal:bind('', '4', 'Close auto switch mode', function() brightTimer:stop() end)
+
+  spoon.ModalMgr.supervisor:bind(darkmodeM_keys[1], darkmodeM_keys[2], "Enter darkmodeM Environment", function()
+    -- Deactivate some modal environments or not before activating a new one
+    spoon.ModalMgr:deactivateAll()
+    -- Show an status indicator so we know we're in some modal environment now
+    spoon.ModalMgr:activate({ "darkmodeM" }, "#B22222", true)
+  end)
 end
 
 ----------------------------------------------------------------------------------------------------

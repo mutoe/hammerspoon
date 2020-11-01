@@ -30,5 +30,8 @@ hscheats_keys = {{"cmd", "ctrl"}, "X"}
 -- rotationM environment keybinding: Screen rotation
 rotationM_keys = {{"cmd", "ctrl"}, "R"}
 
+-- darkmodeM environment keybinding: Darkmode switcher
+darkmodeM_keys = {{"cmd", "ctrl"}, "Y"}
+
 -- Toggle Hammerspoon console
 -- hsconsole_keys = {"alt", "Z"}
