@@ -4,17 +4,13 @@ hs.window.animationDuration = 0
 
 local hiper = require('hiper').new('rightcmd')
 
-require('autoDarkMode')
-
 local features = {
   f = function() hs.application.launchOrFocus('Firefox') end,
   w = function() hs.application.launchOrFocus('Wechat') end,
   m = function() hs.application.launchOrFocus('Mail') end,
-  n = function() hs.application.launchOrFocus('NetNewsWire') end,
+  n = function() hs.application.launchOrFocus('Notion') end,
   t = function() hs.application.launchOrFocus('iTerm') end,
-  i = function() hs.application.launchOrFocus('IntelliJ IDEA') end,
-  -- Pause/Play audio
-  p = function() require('hs.eventtap').event.newSystemKeyEvent("PLAY", true):post() end,
+  i = function() hs.application.launchOrFocus('IntelliJ IDEA Ultimate') end,
 }
 
 hiper.load_features(features)
@@ -99,7 +95,7 @@ if spoon.ToggleScreenRotation then
       spoon.ModalMgr:new("rotationM")
       local cmodal = spoon.ModalMgr.modal_list["rotationM"]
 
-      cmodal:bind('', 'escape', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
+      cmodal:bind('', 'escape', 'Deactivate rotationMj', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
       cmodal:bind('', 'Q', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
       for i, screen in ipairs(hs.screen.allScreens()) do
         name = "Rotate " .. screen:name()

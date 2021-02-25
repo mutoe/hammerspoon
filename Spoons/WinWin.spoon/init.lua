@@ -165,7 +165,12 @@ function obj:moveToScreen(direction)
     elseif direction == "right" then
       cwin:moveOneScreenEast()
     elseif direction == "next" then
+      local isFull = cwin:isFullScreen()
+      cwin:setFullScreen(false)
       cwin:moveToScreen(cscreen:next())
+      hs.timer.doAfter(0.5, function()
+        cwin:setFullScreen(isFull)
+      end)
     else
       hs.alert.show("Unknown direction: " .. direction)
     end
