@@ -5,12 +5,13 @@ hs.window.animationDuration = 0
 local hiper = require('hiper').new('rightcmd')
 
 local features = {
-  f = function() hs.application.launchOrFocus('Firefox') end,
-  w = function() hs.application.launchOrFocus('Wechat') end,
-  m = function() hs.application.launchOrFocus('Mail') end,
-  n = function() hs.application.launchOrFocus('Notion') end,
-  t = function() hs.application.launchOrFocus('iTerm') end,
-  i = function() hs.application.launchOrFocus('IntelliJ IDEA Ultimate') end,
+  f = 'Firefox',
+  w = 'Wechat',
+  m = 'Mail',
+  n = 'Notion',
+  t = 'iTerm',
+  i = 'IntelliJ IDEA Ultimate',
+  l = function() hs.caffeinate.lockScreen() end
 }
 
 hiper.load_features(features)
