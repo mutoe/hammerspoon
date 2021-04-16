@@ -99,6 +99,15 @@ local function windowStash(window)
   table.insert(obj.history, winstru) -- Insert new item of window history
 end
 
+function obj:maximumScreen()
+  local cwin = hs.window.focusedWindow()
+  if cwin then
+    local cscreen = cwin:screen()
+    local cres = cscreen:fullFrame()
+    cwin:setFrame({ x = cres.x, y = cres.y, w = cres.w, h = cres.h })
+  end
+end
+
 function obj:moveAndResize(option)
   local cwin = hs.window.focusedWindow()
   if cwin then

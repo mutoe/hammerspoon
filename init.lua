@@ -95,7 +95,7 @@ if spoon.ToggleScreenRotation then
       spoon.ModalMgr:new("rotationM")
       local cmodal = spoon.ModalMgr.modal_list["rotationM"]
 
-      cmodal:bind('', 'escape', 'Deactivate rotationMj', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
+      cmodal:bind('', 'escape', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
       cmodal:bind('', 'Q', 'Deactivate rotationM', function() spoon.ModalMgr:deactivate({ "rotationM" }) end)
       for i, screen in ipairs(hs.screen.allScreens()) do
         name = "Rotate " .. screen:name()
@@ -174,6 +174,8 @@ if spoon.WinWin then
   cmodal:bind('', 'I', 'Three-fifth Left of Screen', function() spoon.WinWin:moveAndResize("threeFifthLeft") end)
   cmodal:bind('', 'O', 'Two-fifth Right of Screen', function() spoon.WinWin:moveAndResize("twoFifthRight") end)
   cmodal:bind('', 'P', 'Three-fifth Right of Screen', function() spoon.WinWin:moveAndResize("threeFifthRight") end)
+
+  cmodal:bind('', 'E', 'Fullscreen', function() spoon.WinWin:maximumScreen() end)
   cmodal:bind('', 'F', 'Fullscreen', function() spoon.WinWin:moveAndResize("fullscreen") end)
   cmodal:bind('', 'C', 'Center Window', function() spoon.WinWin:moveAndResize("center") end)
   cmodal:bind('', '=', 'Stretch Outward', function() spoon.WinWin:moveAndResize("expand") end, nil, function() spoon.WinWin:moveAndResize("expand") end)
@@ -187,8 +189,8 @@ if spoon.WinWin then
   cmodal:bind('', 'up', 'Move to Above Monitor', function() spoon.WinWin:moveToScreen("up") end)
   cmodal:bind('', 'down', 'Move to Below Monitor', function() spoon.WinWin:moveToScreen("down") end)
   cmodal:bind('', 'space', 'Move to Next Monitor', function() spoon.WinWin:moveToScreen("next") end)
-  cmodal:bind('', '[', 'Undo Window Manipulation', function() spoon.WinWin:undo() end)
-  cmodal:bind('', ']', 'Redo Window Manipulation', function() spoon.WinWin:redo() end)
+  cmodal:bind('', 'Z', 'Undo Window Manipulation', function() spoon.WinWin:undo() end)
+  cmodal:bind('', 'R', 'Redo Window Manipulation', function() spoon.WinWin:redo() end)
   cmodal:bind('', '`', 'Center Cursor', function() spoon.WinWin:centerCursor() end)
 
   -- Register resizeM with modal supervisor
