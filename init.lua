@@ -24,15 +24,15 @@ custom_config = hs.fs.pathToAbsolute(os.getenv("HOME") .. '/.config/hammerspoon/
 if custom_config then
   print("Loading custom config")
   dofile(os.getenv("HOME") .. "/.config/hammerspoon/config.lua")
-  privatepath = hs.fs.pathToAbsolute(hs.configdir .. '/config.lua')
-  if privatepath then
+  private_path = hs.fs.pathToAbsolute(hs.configdir .. '/config.lua')
+  if private_path then
     hs.alert("You have config in both ~/.config/hammerspoon and ~/.hammerspoon.\nThe .config/hammerspoon one will be used.")
   end
 else
   -- otherwise fallback to 'classic' location.
-  privateconf = hs.fs.pathToAbsolute(hs.configdir .. '/config.lua')
-  if privateconf then
-    -- Load awesomeconfig file if exists
+  private_conf = hs.fs.pathToAbsolute(hs.configdir .. '/config.lua')
+  if private_conf then
+    -- Load awesome config file if exists
     require('config')
   end
 end
@@ -119,12 +119,10 @@ if darkmodeM_keys then
   local cmodal = spoon.ModalMgr.modal_list["darkmodeM"]
 
   local function lightMode()
-      hs.osascript.applescript(
-        'tell application "System Events" to tell appearance preferences to set dark mode to false')
+    hs.osascript.applescript('tell application "System Events" to tell appearance preferences to set dark mode to false')
   end
   local function darkMode()
-      hs.osascript.applescript(
-        'tell application "System Events" to tell appearance preferences to set dark mode to true')
+    hs.osascript.applescript('tell application "System Events" to tell appearance preferences to set dark mode to true')
   end
 
   brightTimer = hs.timer.new(5, function()
