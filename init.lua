@@ -10,7 +10,10 @@ local features = {
   m = 'Mail',
   n = 'Notion',
   t = 'iTerm',
+  e = 'Telegram',
+  c = 'Visual Studio Code',
   i = 'IntelliJ IDEA Ultimate',
+  j = 'Joplin',
   l = function() hs.caffeinate.lockScreen() end
 }
 
